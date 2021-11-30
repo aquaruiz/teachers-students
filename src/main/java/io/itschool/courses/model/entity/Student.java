@@ -11,4 +11,28 @@ public class Student extends Person {
     @ManyToOne
     private Group group;
 
+    public Student() {
+    }
+
+    public Student(String id, String name, int age, Group group) {
+        super(id, name, age);
+        this.group = group;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + getId() +
+                ", name=" + getName() +
+                ", age=" + getAge() +
+                '}';
+    }
 }

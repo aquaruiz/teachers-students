@@ -9,6 +9,7 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class BaseEntity {
+
     @Id
     @GeneratedValue(generator = "uuid-string")
     @GenericGenerator(
@@ -23,4 +24,9 @@ public abstract class BaseEntity {
     protected BaseEntity(String id) {
         this.id = id;
     }
+
+    public String getId() {
+        return id;
+    }
+
 }
