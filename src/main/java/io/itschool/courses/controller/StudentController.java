@@ -1,8 +1,6 @@
 package io.itschool.courses.controller;
 
-import io.itschool.courses.model.dto.students.StudentCreateDTO;
-import io.itschool.courses.model.dto.students.StudentEditDTO;
-import io.itschool.courses.model.dto.students.StudentReadDTO;
+import io.itschool.courses.model.dto.students.*;
 import io.itschool.courses.model.entity.Student;
 import io.itschool.courses.service.StudentService;
 import org.modelmapper.ModelMapper;
@@ -30,7 +28,7 @@ public class StudentController {
         StudentReadDTO response = modelMapper.map(savedStudent, StudentReadDTO.class);
 
         return ResponseEntity
-                .status(HttpStatus.CREATED)
+                .status(HttpStatus.OK)
                 .body(response);
     }
 
@@ -61,6 +59,26 @@ public class StudentController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(modelMapper.map(editedStudent, StudentReadDTO.class));
+    }
+
+    @GetMapping("/{id}/details")
+    public ResponseEntity<StudentDetailsReadDTO> getDetailsById(@PathVariable String id) {
+        Student savedStudent = studentService.findByIdWithGroupAndCourses(id);
+        StudentDetailsReadDTO response = modelMapper.map(savedStudent, StudentDetailsReadDTO.class);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
+    }
+
+    @PatchMapping("/{id}/details")
+    public ResponseEntity<StudentDetailsReadDTO> editDetailsById(@PathVariable String id, @RequestBody StudentDetailsEditDTO request) {
+        Student editedStudent = studentService.editStudentDetails(id, request.getCourseIds(), request.getGroupId());
+        StudentDetailsReadDTO response = modelMapper.map(editedStudent, StudentDetailsReadDTO.class);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
     }
 
 }

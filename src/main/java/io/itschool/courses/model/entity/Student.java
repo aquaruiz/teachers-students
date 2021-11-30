@@ -1,6 +1,7 @@
 package io.itschool.courses.model.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -8,7 +9,7 @@ import javax.persistence.Table;
 @Table(name = "students")
 public class Student extends Person {
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Group.class, fetch = FetchType.EAGER)
     private Group group;
 
     public Student() {

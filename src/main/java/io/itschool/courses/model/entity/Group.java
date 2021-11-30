@@ -11,7 +11,7 @@ public class Group extends BaseEntity {
 
     private String name;
 
-    @ManyToMany(targetEntity = Course.class)
+    @ManyToMany(targetEntity = Course.class, fetch = FetchType.EAGER)
     @JoinTable(name = "groups_courses",
             joinColumns = @JoinColumn(name = "group_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id"))
